@@ -1,8 +1,9 @@
+use serde::{Deserialize, Serialize};
 use crate::chunk::Chunk;
 
 pub type Number = f64;
 
-#[derive(Clone, PartialEq)]
+#[derive(Clone, PartialEq, Serialize, Deserialize, Debug)]
 pub enum Value {
     ValBool(bool),
     ValNumber(Number),
@@ -16,8 +17,7 @@ pub enum FunctionType {
     Function,
     Script
 }
-
-#[derive(Clone, PartialEq)]
+#[derive(Clone, PartialEq, Serialize, Deserialize, Debug)]
 pub struct FunctionData {
     pub arity: usize,
     pub chunk: Chunk,
@@ -34,7 +34,7 @@ impl FunctionData {
     }
 }
 
-#[derive(PartialEq, Clone)]
+#[derive(Clone, PartialEq, Serialize, Deserialize, Debug)]
 pub struct ValueArray {
     values: Vec<Value>,
 }

@@ -1,9 +1,10 @@
+use serde::{Deserialize, Serialize};
 use crate::value::Value;
 use crate::value::ValueArray;
 use strum_macros::Display;
 
 #[repr(u8)]
-#[derive(Copy, Clone, Display, Debug, PartialEq)]
+#[derive(Copy, Clone, Display, Debug, PartialEq, Serialize, Deserialize)]
 #[strum(serialize_all = "SCREAMING_SNAKE_CASE")]
 pub enum OpCode {
     OpReturn,
@@ -34,7 +35,7 @@ pub enum OpCode {
     OpCall(usize),
 }
 
-#[derive(Clone, PartialEq)]
+#[derive(Clone, PartialEq, Serialize, Deserialize, Debug)]
 pub struct Chunk {
     code: Vec<OpCode>,
     constants: ValueArray,
