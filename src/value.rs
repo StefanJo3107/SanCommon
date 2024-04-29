@@ -9,6 +9,7 @@ pub enum Value {
     ValNumber(Number),
     ValNil,
     ValString(String),
+    ValKey(u8),
     ValFunction(FunctionData),
 }
 
