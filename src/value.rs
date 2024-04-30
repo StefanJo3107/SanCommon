@@ -64,6 +64,7 @@ impl ValueArray {
             Value::ValNil => print!("\x1B[3m{}\x1B[0m", "nil"),
             Value::ValString(string) => print!("\x1B[3m{}\x1B[0m", string),
             Value::ValFunction(data) => print!("\x1B[3m{}\x1B[0m", if data.name!="" {&data.name} else{"<script>"}),
+            Value::ValKey(key ) => print!("\x1B[3m{}\x1B[0m", key)
         }
     }
 }
