@@ -1,4 +1,4 @@
-use std::mem::{size_of, size_of_val};
+use std::mem::{size_of};
 use std::process::exit;
 use crate::chunk::Chunk;
 use crate::chunk::OpCode;
@@ -12,7 +12,7 @@ pub fn disassemble_chunk(chunk: &Chunk, name: &str) {
     let mut offset = 0;
     //offset that represents actual size of each instruction (used for printing only)
 
-    let mut print_offsets:Vec<usize> = vec![];
+    let mut print_offsets: Vec<usize> = vec![];
     print_offsets.push(0);
 
     while offset < chunk.len() {

@@ -11,6 +11,7 @@ pub enum Value {
     ValString(String),
     ValKey(u8),
     ValFunction(FunctionData),
+    ValNativeFn(NativeFunctionData)
 }
 
 #[derive(Copy, Clone, PartialEq)]
@@ -23,6 +24,12 @@ pub struct FunctionData {
     pub arity: usize,
     pub chunk: Chunk,
     pub name: String,
+}
+
+#[derive(Clone, PartialEq, Serialize, Deserialize, Debug)]
+pub struct NativeFunctionData{
+    pub arity: usize,
+    pub name: String
 }
 
 impl FunctionData {
@@ -64,7 +71,8 @@ impl ValueArray {
             Value::ValNil => print!("\x1B[3m{}\x1B[0m", "nil"),
             Value::ValString(string) => print!("\x1B[3m{}\x1B[0m", string),
             Value::ValFunction(data) => print!("\x1B[3m{}\x1B[0m", if data.name!="" {&data.name} else{"<script>"}),
-            Value::ValKey(key ) => print!("\x1B[3m{}\x1B[0m", key)
+            Value::ValKey(key ) => print!("\x1B[3m{}\x1B[0m", key),
+            Value::ValNativeFn(_) => print!("\x1B[3m{}\x1B[0m", "<native fn>")
         }
     }
 }
