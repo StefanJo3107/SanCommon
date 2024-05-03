@@ -58,7 +58,46 @@ const MEDIA_TAB: [u16; 256] = [0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0
     0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
     0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, ];
 
-pub const HID_KEY_STRINGS: [&str; 169] = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "ENTER", "ESCAPE", "BACKSPACE", "TAB", "SPACE", "MINUS", "EQUAL", "BRACKET_LEFT", "BRACKET_RIGHT", "BACKSLASH", "EUROPE_1", "SEMICOLON", "APOSTROPHE", "GRAVE", "COMMA", "PERIOD", "SLASH", "CAPS_LOCK", "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10", "F11", "F12", "PRINT_SCREEN", "SCROLL_LOCK", "PAUSE", "INSERT", "HOME", "PAGE_UP", "DELETE", "END", "PAGE_DOWN", "ARROW_RIGHT", "ARROW_LEFT", "ARROW_DOWN", "ARROW_UP", "NUM_LOCK", "KEYPAD_DIVIDE", "KEYPAD_MULTIPLY", "KEYPAD_SUBTRACT", "KEYPAD_ADD", "KEYPAD_ENTER", "KEYPAD_1", "KEYPAD_2", "KEYPAD_3", "KEYPAD_4", "KEYPAD_5", "KEYPAD_6", "KEYPAD_7", "KEYPAD_8", "KEYPAD_9", "KEYPAD_0", "KEYPAD_DECIMAL", "EUROPE_2", "APPLICATION", "POWER", "KEYPAD_EQUAL", "F13", "F14", "F15", "F16", "F17", "F18", "F19", "F20", "F21", "F22", "F23", "F24", "EXECUTE", "HELP", "MENU", "SELECT", "STOP", "AGAIN", "UNDO", "CUT", "COPY", "PASTE", "FIND", "MUTE", "VOLUME_UP", "VOLUME_DOWN", "LOCKING_CAPS_LOCK", "LOCKING_NUM_LOCK", "LOCKING_SCROLL_LOCK", "KEYPAD_COMMA", "KEYPAD_EQUAL_SIGN", "KANJI1", "KANJI2", "KANJI3", "KANJI4", "KANJI5", "KANJI6", "KANJI7", "KANJI8", "KANJI9", "LANG1", "LANG2", "LANG3", "LANG4", "LANG5", "LANG6", "LANG7", "LANG8", "LANG9", "ALTERNATE_ERASE", "SYSREQ_ATTENTION", "CANCEL", "CLEAR", "PRIOR", "RETURN", "SEPARATOR", "OUT", "OPER", "CLEAR_AGAIN", "CRSEL_PROPS", "EXSEL", "CONTROL_LEFT", "SHIFT_LEFT", "ALT_LEFT", "GUI_LEFT", "CONTROL_RIGHT", "SHIFT_RIGHT", "ALT_RIGHT", "GUI_RIGHT"];
+pub const HID_KEY_STRINGS: [&str; 169] = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "ENTER", "ESCAPE", "BACKSPACE", "TAB", "SPACE", "MINUS", "EQUAL", "BRACKET_LEFT", "BRACKET_RIGHT", "BACKSLASH", "EUROPE_1", "SEMICOLON", "APOSTROPHE", "GRAVE", "COMMA", "PERIOD", "SLASH", "CAPS_LOCK", "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10", "F11", "F12", "PRINT_SCREEN", "SCROLL_LOCK", "PAUSE", "INSERT", "HOME", "PAGE_UP", "DELETE", "END", "PAGE_DOWN", "ARROW_RIGHT", "ARROW_LEFT", "ARROW_DOWN", "ARROW_UP", "NUM_LOCK", "KEYPAD_DIVIDE", "KEYPAD_MULTIPLY", "KEYPAD_SUBTRACT", "KEYPAD_ADD", "KEYPAD_ENTER", "KEYPAD_1", "KEYPAD_2", "KEYPAD_3", "KEYPAD_4", "KEYPAD_5", "KEYPAD_6", "KEYPAD_7", "KEYPAD_8", "KEYPAD_9", "KEYPAD_0", "KEYPAD_DECIMAL", "EUROPE_2", "APPLICATION", "POWER", "KEYPAD_EQUAL", "F13", "F14", "F15", "F16", "F17", "F18", "F19", "F20", "F21", "F22", "F23", "F24", "EXECUTE", "HELP", "MENU", "SELECT", "STOP", "AGAIN", "UNDO", "CUT", "COPY", "PASTE", "FIND", "MUTE", "VOLUME_UP", "VOLUME_DOWN", "LOCKING_CAPS_LOCK", "LOCKING_NUM_LOCK", "LOCKING_SCROLL_LOCK", "KEYPAD_COMMA", "KEYPAD_EQUAL_SIGN", "KANJI1", "KANJI2", "KANJI3", "KANJI4", "KANJI5", "KANJI6", "KANJI7", "KANJI8", "KANJI9", "LANG1", "LANG2", "LANG3", "LANG4", "LANG5", "LANG6", "LANG7", "LANG8", "LANG9", "ALTERNATE_ERASE", "SYSREQ_ATTENTION", "CANCEL", "CLEAR", "PRIOR", "RETURN", "SEPARATOR", "OUT", "OPER", "CLEAR_AGAIN", "CRSEL_PROPS", "EXSEL", "CTRL", "SHIFT", "ALT", "GUI", "CTRL_RIGHT", "SHIFT_RIGHT", "ALT_RIGHT", "GUI_RIGHT"];
+pub const HID_KEY_CODES: [u8; 169] = [0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F, 0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1A, 0x1B, 0x1C, 0x1D, 0x1E, 0x1F, 0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2A, 0x2B, 0x2C, 0x2D, 0x2E, 0x2F, 0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3A, 0x3B, 0x3C, 0x3D, 0x3E, 0x3F, 0x40, 0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x47, 0x48, 0x49, 0x4A, 0x4B, 0x4C, 0x4D, 0x4E, 0x4F, 0x50, 0x51, 0x52, 0x53, 0x54, 0x55, 0x56, 0x57, 0x58, 0x59, 0x5A, 0x5B, 0x5C, 0x5D, 0x5E, 0x5F, 0x60, 0x61, 0x62, 0x63, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x6A, 0x6B, 0x6C, 0x6D, 0x6E, 0x6F, 0x70, 0x71, 0x72, 0x73, 0x74, 0x75, 0x76, 0x77, 0x78, 0x79, 0x7A, 0x7B, 0x7C, 0x7D, 0x7E, 0x7F, 0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8A, 0x8B, 0x8C, 0x8D, 0x8E, 0x8F, 0x90, 0x91, 0x92, 0x93, 0x94, 0x95, 0x96, 0x97, 0x98, 0x99, 0x9A, 0x9B, 0x9C, 0x9D, 0x9E, 0x9F, 0xA0, 0xA1, 0xA2, 0xA3, 0xA4, 0xE0, 0xE1, 0xE2, 0xE3, 0xE4, 0xE5, 0xE6, 0xE7];
+
+pub fn hid_string_to_code(name: &str) -> Option<u8> {
+    for i in 0..HID_KEY_STRINGS.len() {
+        if HID_KEY_STRINGS[i] == name {
+            return Some(HID_KEY_CODES[i]);
+        }
+    }
+
+    None
+}
+
+pub fn hid_code_to_string(codes: &Vec<u8>) -> Option<String> {
+    let mut result = String::from("");
+    let mut idx = 0;
+    while idx < codes.len() {
+        let mut found = false;
+        for i in 0..HID_KEY_CODES.len() {
+            if HID_KEY_CODES[i] == codes[idx] {
+                if result == "" {
+                    result += HID_KEY_STRINGS[i];
+                } else {
+                    result += format!(" + {}", HID_KEY_STRINGS[i]).as_str();
+                }
+
+                found = true;
+            }
+        }
+
+        if !found {
+            return None;
+        } else{
+            idx += 1;
+        }
+    }
+
+    Some(result)
+}
+
 
 // HID Key Codes
 pub const HID_KEY_NONE: u8 = 0x00;
