@@ -23,6 +23,7 @@ impl<T: HidActuator> NativeFns<T> {
             NativeFunctionData { arity: 2, name } if *name == String::from("random_int") => Self::random_int,
             NativeFunctionData { arity: 2, name } if *name == String::from("random_float") => Self::random_int,
             NativeFunctionData { arity: 1, name } if *name == String::from("inject_keys") => Self::inject_keys,
+            NativeFunctionData { arity: 1, name } if *name == String::from("hold_keys") => Self::hold_keys,
             NativeFunctionData { arity: 3, name } if *name == String::from("inject_sequence") => Self::inject_sequence,
             NativeFunctionData { arity: 0, name } if *name == String::from("release_keys") => Self::release_keys,
             NativeFunctionData { arity: 1, name } if *name == String::from("string_to_keys") => Self::string_to_keys,
@@ -72,6 +73,20 @@ impl<T: HidActuator> NativeFns<T> {
             if let Value::ValKey(keys) = args.first().unwrap() {
                 if keys.len() <= 6 {
                     self.hid_actuator.key_down(keys);
+                    self.hid_actuator.sleep(10);
+                    self.hid_actuator.clear_keys();
+                }
+            }
+        }
+
+        Value::ValNil
+    }
+
+    fn hold_keys(&mut self, args: Vec<Value>) -> Value {
+        if args.len() >= 1 {
+            if let Value::ValKey(keys) = args.first().unwrap() {
+                if keys.len() <= 6 {
+                    self.hid_actuator.key_down(keys);
                 }
             }
         }
@@ -92,8 +107,6 @@ impl<T: HidActuator> NativeFns<T> {
                             } else {
                                 self.hid_actuator.sleep(delay as usize);
                             }
-                            self.hid_actuator.clear_keys();
-                            self.hid_actuator.sleep(10);
                         }
 
                         self.hid_actuator.clear_keys();
