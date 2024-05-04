@@ -98,6 +98,20 @@ pub fn hid_code_to_string(codes: &Vec<u8>) -> Option<String> {
     Some(result)
 }
 
+pub fn hid_key_sequence_to_string(seq: &Vec<Vec<u8>>) -> Option<String> {
+    let mut result = String::from("");
+    for codes in seq {
+        let hid = hid_code_to_string(codes)?;
+        if result == "" {
+            result += hid.as_str();
+        } else {
+            result += format!(" | {}", hid).as_str();
+        }
+    }
+
+    Some(result)
+}
+
 
 // HID Key Codes
 pub const HID_KEY_NONE: u8 = 0x00;

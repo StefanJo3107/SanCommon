@@ -56,7 +56,7 @@ pub fn disassemble_instruction(chunk: &Chunk, offset: usize, print_offsets: &mut
 fn matches_simple_instruction(opcode: &OpCode) -> bool {
     match opcode {
         OpCode::OpReturn | OpCode::OpNegate | OpCode::OpAdd | OpCode::OpSubtract | OpCode::OpMultiply
-        | OpCode::OpDivide | OpCode::OpTrue | OpCode::OpFalse | OpCode::OpNil | OpCode::OpNot
+        | OpCode::OpDivide | OpCode::OpPipe | OpCode::OpTrue | OpCode::OpFalse | OpCode::OpNil | OpCode::OpNot
         | OpCode::OpEqual | OpCode::OpGreater | OpCode::OpLess | OpCode::OpPrint | OpCode::OpPop => true,
         _ => false
     }

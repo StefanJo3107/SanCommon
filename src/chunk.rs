@@ -19,6 +19,7 @@ pub enum OpCode {
     OpSubtract,
     OpMultiply,
     OpDivide,
+    OpPipe,
     OpTrue,
     OpFalse,
     OpNil,

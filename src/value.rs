@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 use crate::chunk::Chunk;
-use crate::keycodes::hid_code_to_string;
+use crate::keycodes::{hid_code_to_string, hid_key_sequence_to_string};
 
 pub type Number = f64;
 
@@ -11,6 +11,7 @@ pub enum Value {
     ValNil,
     ValString(String),
     ValKey(Vec<u8>),
+    ValKeySequence(Vec<Vec<u8>>),
     ValFunction(FunctionData),
     ValNativeFn(NativeFunctionData)
 }
@@ -74,6 +75,7 @@ impl ValueArray {
             Value::ValString(string) => print!("\x1B[3m{}\x1B[0m", string),
             Value::ValFunction(data) => print!("\x1B[3m{}\x1B[0m", if data.name!="" {&data.name} else{"<script>"}),
             Value::ValKey(key ) => print!("\x1B[3m{}\x1B[0m", hid_code_to_string(key).unwrap()),
+            Value::ValKeySequence(seq) => print!("\x1B[3m{}\x1B[0m", hid_key_sequence_to_string(seq).unwrap()),
             Value::ValNativeFn(_) => print!("\x1B[3m{}\x1B[0m", "<native fn>")
         }
     }
