@@ -34,7 +34,7 @@ impl<T: HidActuator> NativeFns<T> {
     fn sleep(&mut self, args: Vec<Value>) -> Value {
         if args.len() >= 1 {
             if let Value::ValNumber(duration) = args.first().unwrap() {
-                std::thread::sleep(Duration::from_millis(*duration as u64));
+                self.hid_actuator.sleep(*duration as usize);
             }
         }
 
@@ -44,9 +44,9 @@ impl<T: HidActuator> NativeFns<T> {
     fn random_int(&mut self, args: Vec<Value>) -> Value {
         if args.len() >= 2 {
             if let Value::ValNumber(low) = args.first().unwrap() {
-                if let Value::ValNumber(high) = args[1].unwrap() {
+                if let Value::ValNumber(high) = args[1] {
                     let mut rng = rand::thread_rng();
-                    Value::ValNumber(rng.gen_range(*low as u64..high as u64))
+                    return Value::ValNumber(rng.gen_range(*low as u64..high as u64) as Number);
                 }
             }
         }
@@ -57,9 +57,9 @@ impl<T: HidActuator> NativeFns<T> {
     fn random_float(&mut self, args: Vec<Value>) -> Value {
         if args.len() >= 2 {
             if let Value::ValNumber(low) = args.first().unwrap() {
-                if let Value::ValNumber(high) = args[1].unwrap() {
+                if let Value::ValNumber(high) = args[1] {
                     let mut rng = rand::thread_rng();
-                    Value::ValNumber(rng.gen_range(*low as f64..high as f64))
+                    return Value::ValNumber(rng.gen_range(*low as f64..high as f64));
                 }
             }
         }
@@ -87,7 +87,7 @@ impl<T: HidActuator> NativeFns<T> {
                         for combo in seq {
                             self.hid_actuator.key_down(combo);
                             let mut rng = rand::thread_rng();
-                            std::thread::sleep(Duration::from_millis(delay as u64 + rng.gen_range(0..jitter as u64)));
+                            self.hid_actuator.sleep(delay as usize + rng.gen_range(0..jitter as usize));
                         }
 
                         self.hid_actuator.clear_keys();
@@ -144,7 +144,7 @@ impl<T: HidActuator> NativeFns<T> {
                         for combo in seq {
                             self.hid_actuator.key_down(&combo);
                             let mut rng = rand::thread_rng();
-                            std::thread::sleep(Duration::from_millis((delay + rng.gen_range(0 as Number..jitter)) as u64));
+                            self.hid_actuator.sleep(delay as usize + rng.gen_range(0..jitter as usize));
                         }
 
                         self.hid_actuator.clear_keys();

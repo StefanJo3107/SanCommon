@@ -1,3 +1,4 @@
+use std::time::Duration;
 use crate::keycodes::KeyCode;
 
 pub trait HidActuator {
@@ -8,4 +9,5 @@ pub trait HidActuator {
     fn scroll_mouse_wheel(&mut self, x: i16, y: i16);
     fn key_down(&mut self, key: &Vec<u8>);
     fn clear_keys(&mut self);
+    fn sleep(&mut self, duration_ms: usize);
 }
