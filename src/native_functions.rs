@@ -81,13 +81,17 @@ impl<T: HidActuator> NativeFns<T> {
 
     fn inject_sequence(&mut self, args: Vec<Value>) -> Value {
         if args.len() >= 3 {
-            if let Value::ValKeySequence(seq) = args.first().unwrap() {
+            if let Value::ValNumber(jitter) = args[0] {
                 if let Value::ValNumber(delay) = args[1] {
-                    if let Value::ValNumber(jitter) = args[2] {
+                    if let Value::ValKeySequence(seq) = &args[2] {
                         for combo in seq {
                             self.hid_actuator.key_down(combo);
                             let mut rng = rand::thread_rng();
-                            self.hid_actuator.sleep(delay as usize + rng.gen_range(0..jitter as usize));
+                            if jitter > 0f64 {
+                                self.hid_actuator.sleep(delay as usize + rng.gen_range(0..jitter as usize));
+                            } else {
+                                self.hid_actuator.sleep(delay as usize);
+                            }
                         }
 
                         self.hid_actuator.clear_keys();
@@ -127,9 +131,9 @@ impl<T: HidActuator> NativeFns<T> {
 
     fn type_string(&mut self, args: Vec<Value>) -> Value {
         if args.len() >= 3 {
-            if let Value::ValString(keys) = args.first().unwrap() {
+            if let Value::ValNumber(jitter) = args[0] {
                 if let Value::ValNumber(delay) = args[1] {
-                    if let Value::ValNumber(jitter) = args[2] {
+                    if let Value::ValString(keys) = &args[2] {
                         let mut seq: Vec<Vec<u8>> = vec![];
 
                         for c in keys.chars() {
@@ -144,7 +148,11 @@ impl<T: HidActuator> NativeFns<T> {
                         for combo in seq {
                             self.hid_actuator.key_down(&combo);
                             let mut rng = rand::thread_rng();
-                            self.hid_actuator.sleep(delay as usize + rng.gen_range(0..jitter as usize));
+                            if jitter > 0f64 {
+                                self.hid_actuator.sleep(delay as usize + rng.gen_range(0..jitter as usize));
+                            } else {
+                                self.hid_actuator.sleep(delay as usize);
+                            }
                         }
 
                         self.hid_actuator.clear_keys();
