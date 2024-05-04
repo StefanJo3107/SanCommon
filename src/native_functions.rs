@@ -107,6 +107,8 @@ impl<T: HidActuator> NativeFns<T> {
                             } else {
                                 self.hid_actuator.sleep(delay as usize);
                             }
+                            self.hid_actuator.clear_keys();
+                            self.hid_actuator.sleep(10);
                         }
 
                         self.hid_actuator.clear_keys();
