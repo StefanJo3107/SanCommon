@@ -28,6 +28,11 @@ impl<T: HidActuator> NativeFns<T> {
             NativeFunctionData { arity: 0, name } if *name == String::from("release_keys") => Self::release_keys,
             NativeFunctionData { arity: 1, name } if *name == String::from("string_to_keys") => Self::string_to_keys,
             NativeFunctionData { arity: 3, name } if *name == String::from("type_string") => Self::type_string,
+            NativeFunctionData { arity: 2, name } if *name == String::from("mouse_move") => Self::mouse_move,
+            NativeFunctionData { arity: 1, name } if *name == String::from("mouse_click") => Self::mouse_click,
+            NativeFunctionData { arity: 1, name } if *name == String::from("mouse_hold") => Self::mouse_hold,
+            NativeFunctionData { arity: 0, name } if *name == String::from("mouse_up") => Self::mouse_up,
+
             _ => panic!("Unimplemented native function with name {}", fun_data.name)
         }
     }
@@ -73,8 +78,9 @@ impl<T: HidActuator> NativeFns<T> {
             if let Value::ValKey(keys) = args.first().unwrap() {
                 if keys.len() <= 6 {
                     self.hid_actuator.key_down(keys);
-                    self.hid_actuator.sleep(10);
+                    self.hid_actuator.sleep(60);
                     self.hid_actuator.clear_keys();
+                    self.hid_actuator.sleep(10);
                 }
             }
         }
@@ -112,6 +118,7 @@ impl<T: HidActuator> NativeFns<T> {
                         }
 
                         self.hid_actuator.clear_keys();
+                        self.hid_actuator.sleep(10);
                     }
                 }
             }
@@ -122,6 +129,51 @@ impl<T: HidActuator> NativeFns<T> {
 
     fn release_keys(&mut self, args: Vec<Value>) -> Value {
         self.hid_actuator.clear_keys();
+        self.hid_actuator.sleep(10);
+        Value::ValNil
+    }
+
+    fn mouse_move(&mut self, args: Vec<Value>) -> Value {
+        if args.len() >= 2 {
+            if let Value::ValNumber(y) = args[0] {
+                if let Value::ValNumber(x) = args[1] {
+                    self.hid_actuator.move_cursor(x as i8, y as i8);
+                    self.hid_actuator.sleep(60);
+                    self.hid_actuator.move_cursor(0, 0);
+                    self.hid_actuator.sleep(60);
+                }
+            }
+        }
+
+        Value::ValNil
+    }
+
+    fn mouse_click(&mut self, args: Vec<Value>) -> Value {
+        if args.len() >= 1 {
+            if let Value::ValMouseButton(code) = args[0] {
+                self.hid_actuator.mouse_down(code);
+                self.hid_actuator.sleep(10);
+                self.hid_actuator.mouse_up();
+                self.hid_actuator.sleep(10);
+            }
+        }
+
+        Value::ValNil
+    }
+
+    fn mouse_hold(&mut self, args: Vec<Value>) -> Value {
+        if args.len() >= 1 {
+            if let Value::ValMouseButton(code) = args[0] {
+                self.hid_actuator.mouse_down(code);
+            }
+        }
+
+        Value::ValNil
+    }
+
+    fn mouse_up(&mut self, args: Vec<Value>) -> Value {
+        self.hid_actuator.mouse_up();
+        self.hid_actuator.sleep(10);
         Value::ValNil
     }
 
