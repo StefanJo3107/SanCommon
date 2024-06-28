@@ -21,7 +21,7 @@ impl<T: HidActuator> NativeFns<T> {
         match fun_data {
             NativeFunctionData { arity: 1, name } if *name == String::from("sleep") => Self::sleep,
             NativeFunctionData { arity: 2, name } if *name == String::from("random_int") => Self::random_int,
-            NativeFunctionData { arity: 2, name } if *name == String::from("random_float") => Self::random_int,
+            NativeFunctionData { arity: 2, name } if *name == String::from("random_float") => Self::random_float,
             NativeFunctionData { arity: 1, name } if *name == String::from("inject_keys") => Self::inject_keys,
             NativeFunctionData { arity: 1, name } if *name == String::from("hold_keys") => Self::hold_keys,
             NativeFunctionData { arity: 3, name } if *name == String::from("inject_sequence") => Self::inject_sequence,
