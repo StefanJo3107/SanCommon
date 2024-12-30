@@ -1,6 +1,3 @@
-use std::time::Duration;
-use crate::keycodes::KeyCode;
-
 pub trait HidActuator {
     fn move_cursor(&mut self, x: i8, y: i8);
     fn mouse_down(&mut self, button: u8);

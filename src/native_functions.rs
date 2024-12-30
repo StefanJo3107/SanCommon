@@ -1,10 +1,9 @@
-use std::time::Duration;
-use rand::{random, Rng};
+use rand::Rng;
 use crate::hid_actuator::HidActuator;
 use crate::keycodes::ASCII_2_HID;
 use crate::value::{NativeFunctionData, Number, Value};
 
-pub type NativeFn<T: HidActuator> = fn(&mut NativeFns<T>, Vec<Value>) -> Value;
+pub type NativeFn<T> = fn(&mut NativeFns<T>, Vec<Value>) -> Value;
 
 pub struct NativeFns<T: HidActuator> {
     hid_actuator: T,
@@ -21,7 +20,7 @@ impl<T: HidActuator> NativeFns<T> {
         match fun_data {
             NativeFunctionData { arity: 1, name } if *name == String::from("sleep") => Self::sleep,
             NativeFunctionData { arity: 2, name } if *name == String::from("random_int") => Self::random_int,
-            NativeFunctionData { arity: 2, name } if *name == String::from("random_float") => Self::random_int,
+            NativeFunctionData { arity: 2, name } if *name == String::from("random_float") => Self::random_float,
             NativeFunctionData { arity: 1, name } if *name == String::from("inject_keys") => Self::inject_keys,
             NativeFunctionData { arity: 1, name } if *name == String::from("hold_keys") => Self::hold_keys,
             NativeFunctionData { arity: 3, name } if *name == String::from("inject_sequence") => Self::inject_sequence,
@@ -127,7 +126,7 @@ impl<T: HidActuator> NativeFns<T> {
         Value::ValNil
     }
 
-    fn release_keys(&mut self, args: Vec<Value>) -> Value {
+    fn release_keys(&mut self, _: Vec<Value>) -> Value {
         self.hid_actuator.clear_keys();
         self.hid_actuator.sleep(10);
         Value::ValNil
@@ -171,7 +170,7 @@ impl<T: HidActuator> NativeFns<T> {
         Value::ValNil
     }
 
-    fn mouse_up(&mut self, args: Vec<Value>) -> Value {
+    fn mouse_up(&mut self, _: Vec<Value>) -> Value {
         self.hid_actuator.mouse_up();
         self.hid_actuator.sleep(10);
         Value::ValNil
